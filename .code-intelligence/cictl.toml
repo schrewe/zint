@@ -1,0 +1,5 @@
+server = "127.0.0.1:6773"
+
+[sync]
+  project = "projects/organizations_82cc3b42e291d178_zint-006bf471"
+  remote = "demo.code-intelligence.com:6773"
