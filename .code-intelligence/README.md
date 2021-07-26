@@ -25,8 +25,8 @@ arbitrary data to an encode function (called `ZBarcode_Encode`) and populates a
 `zint_symbol` from that.
 
 The most universal example of this type of fuzz test can be found in
-`.code-intelligence/fuzz_targets/all_barcodes_fuzzer.cpp`. Let me walk you
-through the heart of the fuzz test:
+[`.code-intelligence/fuzz_targets/all_barcodes_fuzzer.cpp`](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/all_barcodes_fuzzer.cpp).
+Let me walk you through the heart of the fuzz test:
 
 ```C++
 // 1. The fuzzer calls the FUZZ macro with pseudo-random data and size.
@@ -74,9 +74,9 @@ all barcode types into individual fuzz tests. You can see how this is done in
 practice in the following individual fuzz tests (all in
 `.code-intelligence/fuzz_targets`):
 
--   `auspost_fuzzer.cpp`
--   `codablockf_fuzzer.cpp`
--   `codeone_fuzzer.cpp`
--   `dotcode_fuzzer.cpp`
--   `eanfuzzer_fuzzer.cpp`
--   `vin_fuzzer.cpp`
+-   [auspost_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/auspost_fuzzer.cpp)
+-   [codablockf_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
+-   [codeone_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
+-   [dotcode_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
+-   [eanfuzzer_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
+-   [vin_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
