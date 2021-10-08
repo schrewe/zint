@@ -12,10 +12,15 @@ Fuzzing is a dynamic code analysis technique that supplies pseudo-random inputs
 to a software-under-test (SUT), derives new inputs from the behaviour of the
 program (i.e. how inputs are processed), and monitors the SUT for bugs.
 
-As Zint and libzint is written mostly in C, we are particularly concerned with
-memory corruption bugs such as heap or buffer overflows. These bugs can be
+## How can fuzzing improve Zint or other encoding/decoding programs
+
+By sending unexpected inputs to the decoder, fuzzing can trigger erroneous behaviour.
+In case of C/C++ applications, CI Fuzz detects and reports memory corruptions, which can
+originate from programming mistakes in code that employs pointer arithmetics or
+low level memory operations (such as `memcpy`, `strcpy`, ...). These bugs can be
 exploited to read or even write arbitrary data into the memory, resulting in
 information leakage (think Heartbleed) or remote code execution.
+
 
 ## Fuzzing where raw data is handled
 
@@ -80,3 +85,21 @@ practice in the following individual fuzz tests (all in
 -   [dotcode_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
 -   [eanfuzzer_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
 -   [vin_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
+
+## Fuzzing in CI/CD
+
+CI Fuzz allows you to configure your pipeline to automatically trigger the run of fuzz tests.
+Most of the fuzzing runs that you can inspect here were triggered automatically (e.g. by pull or merge request on the GitHub project).
+As you can see in this [`pull request`](https://github.com/ci-fuzz/zint/pull/47) the fuzzing results are automatically commented by the github-action and developers
+can consume the results by clicking on "View Finding" which will lead them directly to the bug description with all the details
+that CI Fuzz provides (input that caused the bug, stack trace, bug location).
+With this configuration comes the hidden strength of fuzzing into play:  
+Fuzzing is not like a penetration test where your application will be tested one time only.
+Once you have configured your fuzz test it can help you for the whole rest of your developing cycle.
+By running your fuzz test each time when some changes where made to the source code you can quickly check for
+regressions and also quickly identify new introduced bugs that would otherwise turn up possibly months 
+later during a penetration test or (even worse) in production. This can help to significantly reduce the bug ramp down phase of any project.
+
+While these demo projects are configured to trigger fuzzing runs on merge or pull requests
+there are many other configuration options for integrating fuzz testing into your CI/CD pipeline
+for example you could also configure your CI/CD to run nightly fuzz tests.
