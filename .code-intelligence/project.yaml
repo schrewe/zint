@@ -1,7 +1,6 @@
 description: >
-  Zint is a suite of programs to allow easy encoding of data in any of the
-  wide range of public domain barcode standards and to allow integration of
-  this capability into your own programs.
+  Zint encodes data into barcodes, and is thus an ideal application
+  for a fuzzer to test and secure.
 
 ## The name of the container image used for building the fuzz tests
 build_container: "cifuzz/builders:zint"
