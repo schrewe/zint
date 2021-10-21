@@ -6,13 +6,18 @@ Zint is a suite of programs to allow easy encoding of data in any of the wide
 range of public domain barcode standards and to allow integration of this
 capability into your own programs.
 
-## What is fuzzing (in a nutshell)?
+## The problem
+
+As Zint is written in C and handles arbitrary input in its decoding functions,
+care must be taken that the program only reads and writes to and from previously
+allocated memory regions (i.e., avoiding buffer overflows). These bugs have been
+notoriously hard to hunt down completely, especially in an automated fashion.
+
+## The solution
 
 Fuzzing is a dynamic code analysis technique that supplies pseudo-random inputs
 to a software-under-test (SUT), derives new inputs from the behaviour of the
 program (i.e. how inputs are processed), and monitors the SUT for bugs.
-
-## How can fuzzing improve Zint or other encoding/decoding programs
 
 By sending unexpected inputs to the decoder, fuzzing can trigger erroneous behaviour.
 In case of C/C++ applications, CI Fuzz detects and reports memory corruptions, which can
@@ -21,8 +26,9 @@ low level memory operations (such as `memcpy`, `strcpy`, ...). These bugs can be
 exploited to read or even write arbitrary data into the memory, resulting in
 information leakage (think Heartbleed) or remote code execution.
 
+## The setup
 
-## Fuzzing where raw data is handled
+### Fuzzing where raw data is handled
 
 Fuzzing is most efficient where raw data is parsed, because in this case no
 assumptions can be made about the format of the input. Zint allows you to pass
@@ -66,7 +72,7 @@ extern "C" int FUZZ(const unsigned char *Data, size_t Size)
 If you haven't done already, you can now explore what the fuzzer found when
 running this fuzz test.
 
-## A note regarding corpus data (and why there are more fuzz tests to explore)
+### A note regarding corpus data (and why there are more fuzz tests to explore)
 
 For each fuzz test that we write, a corpus of interesting inputs is built up.
 Over time, the fuzzer will add more and more inputs to this corpus, based
@@ -86,11 +92,11 @@ practice in the following individual fuzz tests (all in
 -   [eanfuzzer_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
 -   [vin_fuzzer.cpp](https://github.com/ci-fuzz/zint/blob/master/.code-intelligence/fuzz_targets/codablockf_fuzzer.cpp)
 
-## Fuzzing in CI/CD
+### Fuzzing in CI/CD
 
 CI Fuzz allows you to configure your pipeline to automatically trigger the run of fuzz tests.
 Most of the fuzzing runs that you can inspect here were triggered automatically (e.g. by pull or merge request on the GitHub project).
-As you can see in this [`pull request`](https://github.com/ci-fuzz/zint/pull/47) the fuzzing results are automatically commented by the github-action and developers
+As you can see in this [`pull request`](https://github.com/ci-fuzz/zint/pull/53) the fuzzing results are automatically commented by the github-action and developers
 can consume the results by clicking on "View Finding" which will lead them directly to the bug description with all the details
 that CI Fuzz provides (input that caused the bug, stack trace, bug location).
 With this configuration comes the hidden strength of fuzzing into play:  
