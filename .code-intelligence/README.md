@@ -15,16 +15,17 @@ notoriously hard to hunt down completely, especially in an automated fashion.
 
 ## The solution
 
-Fuzzing is a dynamic code analysis technique that supplies pseudo-random inputs
-to a software-under-test (SUT), derives new inputs from the behaviour of the
-program (i.e. how inputs are processed), and monitors the SUT for bugs.
-
 By sending unexpected inputs to the decoder, fuzzing can trigger erroneous behaviour.
 In case of C/C++ applications, CI Fuzz detects and reports memory corruptions, which can
 originate from programming mistakes in code that employs pointer arithmetics or
 low level memory operations (such as `memcpy`, `strcpy`, ...). These bugs can be
 exploited to read or even write arbitrary data into the memory, resulting in
 information leakage (think Heartbleed) or remote code execution.
+
+Fuzzing is a dynamic code analysis technique that supplies pseudo-random inputs
+to a software-under-test (SUT), derives new inputs from the behaviour of the
+program (i.e. how inputs are processed), and monitors the SUT for bugs.
+
 
 ## The setup
 
