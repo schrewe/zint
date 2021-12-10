@@ -1,6 +1,5 @@
 description: >
-  Zint encodes data into barcodes, and is thus an ideal application
-  for a fuzzer to test and secure.
+  Zint uses raw data as input which can easily lead to memory errors. Fuzzing is specialized in finding those with little effort.
 
 ## The name of the container image used for building the fuzz tests
 build_container: "cifuzz/builders:zint"
