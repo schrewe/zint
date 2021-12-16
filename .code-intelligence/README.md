@@ -6,6 +6,8 @@ Zint is a suite of programs to allow easy encoding of data in any of the wide
 range of public domain barcode standards and to allow integration of this
 capability into your own programs.
 
+For more info on Zint click [here](https://zint.org.uk/).
+
 ## The problem
 
 As Zint is written in C and handles arbitrary input in its decoding functions,
