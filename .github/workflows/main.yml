@@ -14,6 +14,8 @@ jobs:
   fuzz_tests:
     runs-on: ubuntu-latest
     steps:
+      - run: ls -la
+        working-directory: ${{ github.workspace }}
       - id: start-fuzzing
         name: Build and Instrument
         uses: CodeIntelligenceTesting/github-actions/start-fuzzing@v3
