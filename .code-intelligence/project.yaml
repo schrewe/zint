@@ -21,7 +21,8 @@ build_container: "cifuzz/builders:zint"
 
 ## Paths to the fuzz tests to execute
 fuzz_tests:
-  - .code-intelligence/fuzz_targets/*.cpp
+ # - .code-intelligence/fuzz_targets/[b-z]*.cpp
+  - .code-intelligence/fuzz_targets/all_barcodes_fuzzer.cpp
 
 ## The sanitizers to use for the fuzz tests
 ## By default, only address sanitizer is used.
